@@ -1,0 +1,110 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--primary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-input: var(--border);
+  --radius-md: 6px;
+  --font-sans: "Barlow Condensed", sans-serif;
+}
+:root {
+  --background: oklch(0.995 0 0);
+  --foreground: oklch(0.28 0.02 260);
+  --primary: oklch(0.63 0.24 8);
+  --primary-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0.01 0);
+  --muted-foreground: oklch(0.54 0.02 260);
+  --accent: oklch(0.95 0.025 8);
+  --personal-top: oklch(0.82 0.11 35);
+  --personal-bottom: oklch(0.7 0.17 355);
+  --personal-icon: oklch(0.7 0.19 5);
+  --team-top: oklch(0.68 0.13 241);
+  --team-bottom: oklch(0.56 0.2 282);
+  --team-icon: oklch(0.59 0.18 277);
+  --enterprise-top: oklch(0.84 0.1 160);
+  --enterprise-bottom: oklch(0.72 0.13 145);
+  --enterprise-icon: oklch(0.72 0.13 150);
+  --badge-background: oklch(0.98 0 0);
+  --card-text: oklch(1 0 0);
+  --card-shadow: 0 20px 40px oklch(0.25 0.02 265 / 0.14);
+  --badge-shadow: 0 10px 20px oklch(0.25 0.02 265 / 0.2);
+  --button-top: oklch(0.71 0.22 8);
+  --button-bottom: oklch(0.6 0.25 8);
+  --button-border: oklch(0.8 0.17 8);
+  --button-shadow: 0 10px 35px oklch(0.65 0.25 8 / 0.48);
+}
+* { box-sizing: border-box; border-color: var(--border); }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); }
+.pricing-page { min-height: 100svh; display: flex; align-items: center; justify-content: center; padding: 56px 48px 72px; }
+.pricing-grid { width: 100%; max-width: 1220px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 44px; }
+.pricing-card { position: relative; min-width: 0; border-radius: 20px; box-shadow: var(--card-shadow); color: var(--card-text); transition: opacity 350ms ease, filter 350ms ease; outline: none; }
+.pricing-card.personal { --card-top: var(--personal-top); --card-bottom: var(--personal-bottom); --card-icon: var(--personal-icon); }
+.pricing-card.team { --card-top: var(--team-top); --card-bottom: var(--team-bottom); --card-icon: var(--team-icon); }
+.pricing-card.enterprise { --card-top: var(--enterprise-top); --card-bottom: var(--enterprise-bottom); --card-icon: var(--enterprise-icon); }
+.card-picture { height: 162px; overflow: hidden; border-radius: 20px 20px 0 0; }
+.card-picture img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.25) translateX(9%); transform-origin: center; will-change: transform; }
+.card-body { position: relative; min-height: 470px; text-align: center; padding: 82px 28px 75px; border-radius: 0 0 20px 20px; background: linear-gradient(135deg, var(--card-top), var(--card-bottom)); }
+.card-badge { position: absolute; width: 106px; height: 106px; top: -53px; left: 50%; transform: translateX(-50%); display: grid; place-items: center; background: var(--badge-background); color: var(--card-icon); border: 6px solid var(--card-text); border-radius: 50%; box-shadow: var(--badge-shadow); }
+.card-badge svg { width: 36px; height: 36px; stroke-width: 2.6; }
+.card-badge svg.rocket-upright { stroke-width: 2; }
+.edition-title { margin: 0; font-size: 29px; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+.edition-price { margin: 16px 0 28px; font-size: 84px; line-height: 1.05; font-weight: 600; font-variant-numeric: tabular-nums; text-shadow: 0 3px 8px oklch(0.3 0.04 265 / 0.15); }
+.edition-description { margin: 0; font-size: 17px; line-height: 1.3; font-weight: 400; opacity: 0.9; }
+.edition-description + .edition-description { margin-top: 24px; }
+.pricing-button { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); width: 72%; height: 76px; border: 3px solid var(--button-border); border-radius: 8px; background: linear-gradient(var(--button-top), var(--button-bottom)); color: var(--card-text); box-shadow: var(--button-shadow); font-family: inherit; font-size: 25px; font-weight: 500; transition: box-shadow 200ms ease, filter 200ms ease, transform 320ms ease; transform-origin: center; }
+.pricing-button:hover { filter: brightness(1.08); }
+.pricing-button:focus-visible { outline: 3px solid var(--card-text); outline-offset: 4px; }
+.pricing-grid:has(.pricing-card:focus-within) .pricing-card:not(:focus-within) { opacity: 0.35; filter: saturate(0.7); }
+.pricing-card:focus-within .pricing-button { transform: translateX(-50%) scale(1.07); }
+@media (hover: hover) {
+  .pricing-grid:has(.pricing-card:hover) .pricing-card { opacity: 0.35; filter: saturate(0.7); }
+  .pricing-grid:has(.pricing-card:hover) .pricing-card:hover { opacity: 1; filter: saturate(1); }
+  .pricing-grid:has(.pricing-card:hover) .pricing-card:hover .pricing-button { transform: translateX(-50%) scale(1.07); }
+  .pricing-card:hover .card-picture img { animation: picture-pan-left 1s ease-in-out forwards; }
+}
+@media (max-width: 1000px) and (min-width: 721px) {
+  .pricing-page { padding: 48px 24px 65px; }
+  .pricing-grid { gap: 24px; }
+  .card-body { padding-left: 18px; padding-right: 18px; }
+  .edition-title { font-size: 23px; }
+  .edition-price { font-size: 66px; }
+  .pricing-button { width: 82%; font-size: 21px; }
+}
+@media (max-width: 720px) {
+  .pricing-page { padding: 32px 24px 64px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 390px; gap: 70px; }
+  .card-body { min-height: 455px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pricing-card, .pricing-button { transition: none; }
+  .pricing-card:focus-within .pricing-button, .pricing-grid:has(.pricing-card:hover) .pricing-card:hover .pricing-button { transform: translateX(-50%); }
+}
+
+/* Default faded state + icon animations */
+.pricing-card { opacity: 0.35; filter: saturate(0.7); }
+.pricing-card:hover, .pricing-card:focus-within { opacity: 1; filter: saturate(1); }
+.card-badge { overflow: hidden; }
+@keyframes icon-fly-up { 0% { transform: translateY(0); } 45% { transform: translateY(-90px); } 46% { transform: translateY(90px); } 100% { transform: translateY(0); } }
+@keyframes icon-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes icon-fly-diag { 0% { transform: translate(0,0); } 45% { transform: translate(80px,-80px); } 46% { transform: translate(-80px,80px); } 100% { transform: translate(0,0); } }
+.pricing-card.personal:hover .card-badge svg, .pricing-card.personal:focus-within .card-badge svg { animation: icon-fly-up 800ms ease-in-out; }
+.pricing-card.team:hover .card-badge svg, .pricing-card.team:focus-within .card-badge svg { animation: icon-spin 1s ease-in-out; }
+.pricing-card.enterprise:hover .card-badge svg, .pricing-card.enterprise:focus-within .card-badge svg { animation: icon-fly-diag 800ms ease-in-out; }
+@keyframes picture-pan-left {
+  from { transform: scale(1.25) translateX(9%); }
+  to { transform: scale(1.25) translateX(-9%); }
+}
+.pricing-card:focus-within .card-picture img { animation: picture-pan-left 1s ease-in-out forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .card-badge svg { animation: none !important; }
+  .card-picture img { transition: none; transform: scale(1.25) translateX(0); }
+  .pricing-card:hover .card-picture img, .pricing-card:focus-within .card-picture img { animation: none !important; transform: scale(1.25) translateX(0); }
+}
